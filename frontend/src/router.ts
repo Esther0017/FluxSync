@@ -12,7 +12,7 @@ const routes = [
         // 登录页
         path: "/login",
         name: "login",
-        component: () => import()
+        component: () => import("@/pages/login/login.vue")
     }
 ];
 
