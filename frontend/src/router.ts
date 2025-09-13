@@ -2,10 +2,17 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
     {
-        // 主页
+        // 首页
         path: "/",
         name: "about",
-        component: () => import("@/pages/about/about.vue")
+        component: () => import("@/pages/about/about.vue"),
+        alias: '/about'
+    },
+    {
+        // 登录页
+        path: "/login",
+        name: "login",
+        component: () => import()
     }
 ];
 

@@ -2,8 +2,9 @@ import { createApp } from 'vue';
 import './style.css';
 import App from './App.vue';
 
-const app = createApp(App);
+const app = createApp(App)
 
+import 'element-plus/dist/index.css';
 import ElementPlus from 'element-plus';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';

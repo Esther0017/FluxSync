@@ -1,3 +1,18 @@
 html, body {
     margin: 0;
 }
+
+@font-face {
+    font-family: "hsc";
+    src: url("https://db.onlinewebfonts.com/t/243710884e5ebac408cd10a7a89fcc96.eot");
+    src: url("https://db.onlinewebfonts.com/t/243710884e5ebac408cd10a7a89fcc96.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/243710884e5ebac408cd10a7a89fcc96.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/243710884e5ebac408cd10a7a89fcc96.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/243710884e5ebac408cd10a7a89fcc96.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/243710884e5ebac408cd10a7a89fcc96.svg#HarmonyOS Sans SC")format("svg");
+    font-display: swap;
+}
+
+html {
+    font-family: 'hsc', 'Consolas', sans-serif !important;
+}
