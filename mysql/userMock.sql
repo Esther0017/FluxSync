@@ -1,6 +1,5 @@
 -- 使用目标数据库
-USE
-fluxsync_user;
+USE fluxsync_user;
 
 START TRANSACTION;
 
