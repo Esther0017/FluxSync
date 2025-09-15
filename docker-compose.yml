@@ -1,13 +1,21 @@
 version: '3.8'
 
+# ==========================================
+# mysql -> 3306
+# auth.jwt -> 1001
+# auth.totp -> 1002
+# backend -> 1003
+# frontend -> 1004
+# minio -> address@1005 | web@1006
+# nginx -> [1007/tcp -> 0.0.0.0:1007]
+# ==========================================
+
 services:
 
   mysql:
     container_name: mysql
     image: fluxsync/mysql
     restart: always
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: fluxsync
       MYSQL_DATABASE: fluxsync
@@ -19,8 +27,8 @@ services:
     container_name: jwt
     image: fluxsync/auth-jwt
     restart: always
-    ports:
-      - "1001:1001"
+    environment:
+      TZ: "Asia/Shanghai"
     networks:
       - fluxsync-networks
 
@@ -28,8 +36,8 @@ services:
     container_name: totp
     image: fluxsync/auth-totp
     restart: always
-    ports:
-      - "1002:1002"
+    environment:
+      TZ: "Asia/Shanghai"
     networks:
       - fluxsync-networks
 
@@ -37,8 +45,41 @@ services:
     container_name: backend
     image: fluxsync/backend
     restart: always
+    environment:
+      TZ: "Asia/Shanghai"
+    networks:
+      - fluxsync-networks
+
+  frontend:
+    container_name: frontend
+    image: fluxsync/frontend
+    restart: always
+    environment:
+      TZ: "Asia/Shanghai"
+    networks:
+      - fluxsync-networks
+
+  minio:
+    container_name: minio
+    image: minio/minio
+    restart: always
+    environment:
+      TZ: "Asia/Shanghai"
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: fluxsync
+      MINIO_PROMETHEUS_AUTH_TYPE: public
+    command: server /data --address ":1005" --console-address ":1006"
+    networks:
+      - fluxsync-networks
+
+  nginx:
+    container_name: nginx
+    image: fluxsync/nginx
+    restart: always
     ports:
-      - "1003:1003"
+      - "1007:1007"
+    environment:
+      TZ: "Asia/Shanghai"
     networks:
       - fluxsync-networks
 
