@@ -6,6 +6,8 @@ import {ref} from "vue";
 const enum State { login, register }
 const status = ref(State.login);
 
+const autoLogin = ref(false);
+
 </script>
 
 <template>
@@ -56,9 +58,12 @@ const status = ref(State.login);
                 <label for="password">密码</label>
               </div>
               <div>
+                <el-checkbox v-model="autoLogin" label="7 天内自动登录" style="margin-top: 10px; margin-left: 5px;" />
+              </div>
+              <div>
                 <el-button
                     type="primary"
-                    style="width: 100%; height: 40px; border-radius: 5px; margin-top: 30px;"
+                    style="width: 100%; height: 40px; border-radius: 5px; margin-top: 10px;"
                 >确认</el-button>
               </div>
             </div>
