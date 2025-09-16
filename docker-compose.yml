@@ -29,6 +29,7 @@ services:
     restart: always
     environment:
       TZ: "Asia/Shanghai"
+      PORT: "1001"
     networks:
       - fluxsync-networks
 
@@ -38,6 +39,7 @@ services:
     restart: always
     environment:
       TZ: "Asia/Shanghai"
+      PORT: "1002"
     networks:
       - fluxsync-networks
 
