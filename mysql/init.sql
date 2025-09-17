@@ -4,35 +4,36 @@ CREATE DATABASE fluxsync_user;
 
 USE fluxsync_user;
 
-CREATE TABLE users (
-    userrank  INT          NOT NULL AUTO_INCREMENT COMMENT '用户排序',
-    username  VARCHAR(255) NOT NULL COMMENT '用户名',
-    title VARCHAR(255) NOT NULL COMMENT '用户名称',
-    password  CHAR(32)     NOT NULL COMMENT '用户密码',
-    uid       INT          NOT NULL COMMENT '用户唯一标识符',
-    regtime   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
-    role      ENUM('admin', 'normal')  NOT NULL DEFAULT 'normal' COMMENT '用户级别',
-    PRIMARY KEY (userrank),
-    UNIQUE KEY uk_users_uid (uid)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息表';
+CREATE TABLE users
+(
+    uid      INT          NOT NULL AUTO_INCREMENT COMMENT '用户唯一标识符',
+    username VARCHAR(255) NOT NULL COMMENT '用户名',
+    nickname  VARCHAR(255) NOT NULL COMMENT '用户名称',
+    password CHAR(32)     NOT NULL COMMENT '用户密码',
+    regtime  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
+    role     ENUM('admin', 'normal')  NOT NULL DEFAULT 'normal' COMMENT '用户级别',
+    PRIMARY KEY (uid),
+    UNIQUE KEY uk_user_username (username)
+) ENGINE=InnoDB AUTO_INCREMENT=10001 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
-CREATE TABLE teams (
-    tidrank     INT          NOT NULL AUTO_INCREMENT COMMENT '团队排序',
-    title   VARCHAR(255) NOT NULL COMMENT '团队名',
-    name        VARCHAR(255) NOT NULL COMMENT '团队名称',
+CREATE TABLE teams
+(
+    tid         INT          NOT NULL AUTO_INCREMENT COMMENT '团队唯一标识符',
+    name       VARCHAR(255) NOT NULL COMMENT '团队名',
     description TEXT         NOT NULL COMMENT '团队描述',
     createtime  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    tid         INT          NOT NULL COMMENT '团队唯一标识符',
-    PRIMARY KEY (tidrank),
-    UNIQUE KEY uk_teams_tid (tid)
+    PRIMARY KEY (tid),
+    UNIQUE KEY uk_teams_name (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='团队信息表';
 
-CREATE TABLE teams_users (
+CREATE TABLE teams_users
+(
     uid      INT       NOT NULL COMMENT '用户id',
     tid      INT       NOT NULL COMMENT '团队id',
     trole    ENUM('creator', 'admin', 'member') NOT NULL COMMENT '团队角色',
     jointime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '加入时间',
     PRIMARY KEY (uid, tid),
+    KEY idx_tid (tid),
     CONSTRAINT fk_teams_users_user
         FOREIGN KEY (uid) REFERENCES users (uid)
             ON DELETE CASCADE
@@ -42,6 +43,3 @@ CREATE TABLE teams_users (
             ON DELETE CASCADE
             ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='团队成员关联表';
-
--- jwt 库
--- CREATE DATABASE fluxsync_jwt;
