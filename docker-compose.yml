@@ -49,6 +49,7 @@ services:
     restart: always
     environment:
       TZ: "Asia/Shanghai"
+      PORT: "1003"
     networks:
       - fluxsync-networks
 
