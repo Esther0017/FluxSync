@@ -1,6 +1,11 @@
 spring:
   application:
     name: Fluxsync
+  datasource:
+    url: "jdbc:mysql://localhost:3306?useSSL=false&characterEncoding=utf8"
+    username: "root"
+    password: "fluxsync"
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 server:
   port: ${PORT:1003}
