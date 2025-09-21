@@ -12,3 +12,7 @@ app:
       username: "root"
       password: "fluxsync"
       driver-class-name: com.mysql.cj.jdbc.Driver
+
+  services:
+    totp:
+      url: "http://localhost:1002"
