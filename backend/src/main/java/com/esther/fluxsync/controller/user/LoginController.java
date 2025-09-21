@@ -76,15 +76,20 @@ class LoginController {
                 .bodyToMono(TokenRes.class)
                 .block();
 
-        System.out.println(token);
-
-        class Res {
-            public final String token;
-            public Res(String token) { this.token = token; }
-        }
+        record Res(String token, Boolean totpEnable) {}
         ResponseDTO<Res> res = null;
+
         if (token != null) {
-            res = new ResponseDTO<>(Status.SUCCESS, "登录成功",  new Res(token.token));
+
+            List<Boolean> enable = db.query(
+                    "SELECT totp_enable FROM totp_info WHERE username = ?",
+                    rs -> rs.getBoolean(1),
+                    user.getUsername()
+            );
+
+            boolean isTotpEnabled = !enable.isEmpty() && enable.get(0);
+
+            res = new ResponseDTO<>(Status.SUCCESS, "登录成功",  new Res(token.token, isTotpEnabled));
             return new ResponseEntity<>(res, HttpStatus.OK);
         }
 
