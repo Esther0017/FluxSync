@@ -1,6 +1,6 @@
 local cjson = require "cjson.safe"
 
-if ngx.var.uri == "/api/login" or ngx.var.uri == "/api/register" then
+if ngx.var.uri == "/api/user/login" or ngx.var.uri == "/api/user/register" then
     return
 end
 
