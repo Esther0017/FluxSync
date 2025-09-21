@@ -39,16 +39,13 @@ class LoginController {
      */
     @PostMapping("/login")
     @UseDB("fluxsync_user")
-    @SuppressWarnings("CallToPrintStackTrace")
     public ResponseEntity<ResponseDTO<String>> login(@RequestBody UserDTO user) {
-        List<Integer> result = new ArrayList<>();
-
-        try {
-            String sql = "SELECT COUNT(*) FROM users WHERE username = ? AND password = MD5(?)";
-            result = db.query(sql, new Object[] {user.getUsername(), user.getPassword()}, rs -> rs.getInt(1));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        List<Integer> result = db.query(
+                "SELECT COUNT(*) FROM users WHERE username = ? AND password = MD5(?)",
+                rs -> rs.getInt(1),
+                user.getUsername(),
+                user.getPassword()
+        );
 
         if  (result.isEmpty() || result.get(0) == 0) {
             ResponseDTO<String> res = new ResponseDTO<>(Status.UNAUTHORIZED, "用户名或密码错误!", null);
