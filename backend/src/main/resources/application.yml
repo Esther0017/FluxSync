@@ -8,7 +8,7 @@ server:
 app:
   datasource:
     fluxsync-user:
-      jdbc-url: "jdbc:mysql://localhost:3306/fluxsync_user?useSSL=false&characterEncoding=utf8"
+      jdbc-url: "jdbc:mysql://localhost:3306/fluxsync_user?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8&useSSL=false"
       username: "root"
       password: "fluxsync"
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,3 +16,6 @@ app:
   services:
     totp:
       url: "http://localhost:1002"
+    jwt:
+      url: "http://localhost:1001"
+      uri: "/issue"
