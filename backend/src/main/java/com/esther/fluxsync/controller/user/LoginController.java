@@ -36,13 +36,13 @@ class LoginController {
      * 用户登录接口，验证用户名和密码，并通过外部 JWT 服务生成认证 token。
      * <p>
      * 该接口接收用户登录信息，通过查询数据库验证用户名和密码的正确性，若成功，
-     * 则通过外部服务请求生成一个 JWT token，返回给客户端。
-     * 若验证失败，则返回用户名或密码错误的响应。
+     * 则通过外部服务请求生成一个 JWT token，并检查是否启用了 TOTP（基于时间的一次性密码）验证，
+     * 返回生成的 token 及 TOTP 启用状态。若验证失败，则返回用户名或密码错误的响应。
      * </p>
      *
      * @param user 包含登录信息的 {@link UserDTO} 对象，包含用户名和密码
-     * @return {@link ResponseEntity} 包含 {@link ResponseDTO} 对象，成功时携带生成的 JWT token
-     *         - 登录成功：状态200 OK，消息“登录成功”，响应体中携带 token
+     * @return {@link ResponseEntity} 包含 {@link ResponseDTO} 对象，成功时携带生成的 JWT token 和 TOTP 启用状态
+     *         - 登录成功：状态200 OK，消息“登录成功”，响应体中携带 token 和 TOTP 启用状态
      *         - 登录失败：状态401 Unauthorized，消息“用户名或密码错误”
      *         - 登录失败（外部服务问题）：状态502 Bad Gateway，消息“登录失败”
      *
